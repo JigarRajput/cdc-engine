@@ -1,13 +1,34 @@
 # Distributed CDC Engine
 
-Custom CDC engine from scratch to stream real-time database mutations.
+Custom CDC engine built from scratch to stream real-time database mutations.
 
-Built without Debezium - uses low-level Logical Decoding (pgoutput).
+Built without Debezium — uses low-level Logical Decoding (`pgoutput`).
 
-**Current Status:** Project bootstrap - BUILD SUCCESS (Java 11)
+**Current Status:** 🟢 LIVE — INSERT capture working
 
-**Plan:**
+```log
+BEGIN
+Insert CDC EVENT: CdcEvent{op=INSERT, schema='public', table='users', ... lsn=25115944}
+COMMIT
+```
 
-- Insert parser
-- LSN tracking
-- Kafka integration
+## What works
+
+- [x] Replication connection (`my_slot` + `my_pub`)
+- [x] INSERT capture, WAL parsing & CdcEvent generation
+- [x] LSN tracking
+- [ ] UPDATE/DELETE parsing
+- [ ] Kafka producer
+- [ ] Checkpointing
+
+## Run
+
+```powershell
+mvn compile exec:java -D"exec.mainClass=com.jigar.engine.CdcEngine"
+```
+
+## Test
+
+```sql
+INSERT INTO users(id, name) VALUES (100, 'test');
+```
