@@ -12,23 +12,23 @@ Insert CDC EVENT: CdcEvent{op=INSERT, schema='public', table='users', ... lsn=25
 COMMIT
 ```
 
-## What works
+## 🛠️ Feature Roadmap & Progress
 
-- [x] Replication connection (`my_slot` + `my_pub`)
-- [x] INSERT capture, WAL parsing & CdcEvent generation
-- [x] LSN tracking
-- [ ] UPDATE/DELETE parsing
-- [ ] Kafka producer
-- [ ] Checkpointing
+* ✅ **Replication Connection** (`my_slot` + `my_pub`)
+* ✅ **INSERT Capture** (WAL parsing & `CdcEvent` generation)
+* ✅ **LSN Tracking** (Log Sequence Number stream offsets)
+* ⏳ **UPDATE/DELETE Parsing** (Raw byte stream layout expansion)
+* ⏳ **Kafka Producer Integration** (Decoupled event pipeline)
+* ⏳ **Fault-Tolerant Checkpointing** (State recovery mechanism)
 
-## Run
+## 🚀 Execution & Verification
 
+### Run the Engine
 ```powershell
 mvn compile exec:java -D"exec.mainClass=com.jigar.engine.CdcEngine"
 ```
 
-## Test
-
+### Test Target Mutation
 ```sql
 INSERT INTO users(id, name) VALUES (100, 'test');
 ```
